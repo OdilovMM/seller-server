@@ -7,8 +7,17 @@ class OtpController {
 			await mailService.sendOtpMail(email);
 			res.json({ message: 'OTP sent successfully' });
 		} catch (error) {
-            console.log(error)
 			next(error);
+		}
+	}
+
+    async verifyOtp(req, res, next) {
+		try {
+			const { email, otp } = req.body
+			const result = await mailService.verifyOtp(email, otp)
+			res.json(result)
+		} catch (error) {
+			next(error)
 		}
 	}
 }
