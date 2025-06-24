@@ -25,8 +25,11 @@ class UserController {
 	}
 	// [GET] /user/profile/:id
 	async getProfile(req, res, next) {
+		console.log(req.params.id);
+		console.log(req.params);
 		try {
 			const user = await userModel.findById(req.params.id).select('-password');
+			console.log(user);
 			return res.json({ user });
 		} catch (error) {
 			next(error);

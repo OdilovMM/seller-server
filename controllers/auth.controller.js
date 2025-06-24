@@ -13,7 +13,7 @@ class AuthController {
 			const isValidPassword = await bcrypt.compare(password, user.password);
 			if (!isValidPassword) return res.json({ failure: 'Password do not match' });
 
-			return res.json({ user });
+			return res.json({ user })
 		} catch (error) {
 			next(error);
 		}
@@ -28,7 +28,7 @@ class AuthController {
 			const hashedPassword = await bcrypt.hash(password, 10);
 			const newUser = await userModel.create({ email, password: hashedPassword, fullName });
 
-			return res.json({ newUser });
+			return res.json({ user: newUser })
 		} catch (error) {
 			next(error);
 		}
