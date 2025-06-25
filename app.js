@@ -6,6 +6,9 @@ const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const errorMiddleware = require('./middlewares/error.middleware');
 
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
+
 const app = express();
 
 // Middlewares
@@ -13,6 +16,28 @@ app.use(express.json());
 app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
+
+// Swagger configuration
+const swaggerOptions = {
+	definition: {
+		openapi: '3.0.0',
+		info: {
+			title: 'User API',
+			version: '1.0.0',
+			description: 'A simple Express User API',
+		},
+		servers: [
+			{
+				url: 'http://localhost:8080',
+				description: 'Development server',
+			},
+		],
+	},
+	apis: ['./routes/*.js'], // Path to the API routes folders
+};
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // Routes
 app.use('/api', require('./routes/index'));
