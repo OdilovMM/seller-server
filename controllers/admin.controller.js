@@ -2,10 +2,10 @@ const userModel = require('../models/user.model');
 const productModel = require('../models/product.model');
 const orderModel = require('../models/order.model');
 const transactionModel = require('../models/transaction.model');
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 class AdminController {
 	constructor() {
-		this.userId = '67420187ce7f12bf6ec22428';
 		this.createProduct = this.createProduct.bind(this);
 		this.updateProduct = this.updateProduct.bind(this);
 		this.deleteProduct = this.deleteProduct.bind(this);
@@ -48,6 +48,7 @@ class AdminController {
 
 			return res.json({ products, isNext });
 		} catch (error) {
+			console.log(error);
 			next(error);
 		}
 	}
@@ -98,6 +99,7 @@ class AdminController {
 
 			return res.json({ customers, isNext });
 		} catch (error) {
+			console.log(error);
 			next(error);
 		}
 	}
@@ -150,6 +152,7 @@ class AdminController {
 
 			return res.json({ orders, isNext });
 		} catch (error) {
+			console.log(error);
 			next(error);
 		}
 	}
@@ -212,10 +215,31 @@ class AdminController {
 	// [POST] /admin/create-product
 	async createProduct(req, res, next) {
 		try {
+			const userId = req.user._id;
 			const newProduct = await productModel.create(req.body);
 			if (!newProduct) return res.json({ failure: 'Fail while creating product' });
+
+			const product = await stripe.products.create({
+				name: newProduct.title,
+				images: [newProduct.image],
+				metadata: { productId: newProduct._id.toString(), userId: userId.toString() },
+			});
+			const exchangeRate = 12500;
+			const amountInUSD = newProduct.price / exchangeRate;
+
+			const price = await stripe.prices.create({
+				product: product.id,
+				unit_amount: amountInUSD.toFixed(0) * 100,
+				currency: 'usd',
+				metadata: { productId: newProduct._id.toString(), userId: userId.toString() },
+			});
+			await productModel.findByIdAndUpdate(newProduct._id, {
+				stripeProductId: product.id,
+				stripePriceId: price.id,
+			});
 			return res.json({ status: 201 });
 		} catch (error) {
+			console.log(error);
 			next(error);
 		}
 	}
@@ -225,10 +249,23 @@ class AdminController {
 		try {
 			const data = req.body;
 			const { id } = req.params;
-			const updatedProduct = await productModel.findByIdAndUpdate(id, data);
-			if (!updatedProduct) return res.json({ failure: 'Failed while updating product' });
+			const userId = req.user._id;
+			const updateProduct = await productModel.findByIdAndUpdate(id, data, { new: true });
+
+			const exchangeRate = 12500;
+			const amountInUSD = updateProduct.price / exchangeRate;
+
+			const price = await stripe.prices.create({
+				product: updateProduct.stripeProductId,
+				unit_amount: amountInUSD.toFixed(0) * 100,
+				currency: 'usd',
+				metadata: { productId: updateProduct._id.toString(), userId: userId.toString() },
+			});
+
+			await productModel.findByIdAndUpdate(updateProduct._id, { stripePriceId: price.id });
 			return res.json({ status: 200 });
 		} catch (error) {
+			console.log(error);
 			next(error);
 		}
 	}
@@ -246,18 +283,37 @@ class AdminController {
 			if (!updatedOrder) return res.json({ failure: 'Failed while updating order' });
 			return res.json({ success: 'Order updated successfully' });
 		} catch (error) {
+			console.log(error);
 			next(error);
 		}
 	}
-	
+
 	// [DELETE] /admin/delete-product/:id
 	async deleteProduct(req, res, next) {
 		try {
 			const { id } = req.params;
-			const deletedProduct = await productModel.findByIdAndDelete(id);
-			if (!deletedProduct) return res.json({ failure: 'Failed while deleting product' });
-			return res.json({ status: 204 });
+
+			const product = await productModel.findById(id);
+
+			if (!product) {
+				return res.status(404).json({ failure: 'Product not found' });
+			}
+			if (product.stripePriceId) {
+				await stripe.prices.update(product.stripePriceId, { active: false });
+			} else {
+				console.warn(`Missing stripePriceId for product ${id}`);
+			}
+
+			if (product.stripeProductId) {
+				await stripe.products.update(product.stripeProductId, { active: false });
+			} else {
+				console.warn(`Missing stripeProductId for product ${id}`);
+			}
+
+			await productModel.findByIdAndDelete(id);
+			return res.status(200).json({ status: 204 });
 		} catch (error) {
+			console.log(error);
 			next(error);
 		}
 	}

@@ -22,9 +22,9 @@ const swaggerOptions = {
 	definition: {
 		openapi: '3.0.0',
 		info: {
-			title: 'User API',
+			title: 'E-commerce API docs',
 			version: '1.0.0',
-			description: 'A simple Express User API',
+			description: 'E-commerce api docs for api test',
 		},
 		servers: [
 			{
