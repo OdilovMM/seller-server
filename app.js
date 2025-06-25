@@ -8,8 +8,12 @@ const errorMiddleware = require('./middlewares/error.middleware');
 
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const stripeController = require('./controllers/stripe.controller');
 
 const app = express();
+
+// webhooks
+app.post('/webhook/stripe', express.raw({ type: 'application/json' }), stripeController.webhook);
 
 // Middlewares
 app.use(express.json());
