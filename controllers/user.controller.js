@@ -46,7 +46,7 @@ class UserController {
 		console.log(req.params.id);
 		try {
 			const product = await productModel.findById(req.params.id);
-			return res.json({product});
+			return res.json({ product });
 		} catch (error) {
 			next(error);
 		}
@@ -114,12 +114,14 @@ class UserController {
 	// [POST] /user/add-favorite
 	async addFavorite(req, res, next) {
 		try {
+			
 			const { productId } = req.body;
-			const userId = '67420187ce7f12bf6ec22428';
-			const user = await userModel.findById(userId);
-			user.favorites.push(productId);
-			await user.save();
-			return res.json(user);
+			const userId = req.user._id;
+			const isExist = await userModel.findOne({ _id: userId, favorites: productId });
+			if (isExist) return res.json({ failure: 'Product already in favorites' });
+			const myCart = await userModel.findByIdAndUpdate(userId, { $push: { favorites: productId } });
+
+			return res.json({ status: 200 });
 		} catch (error) {
 			next(error);
 		}

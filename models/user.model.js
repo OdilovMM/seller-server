@@ -30,7 +30,10 @@ const userSchema = new Schema(
 			type: Boolean,
 			default: false,
 		},
-		deletedAt: [
+		deletedAt: {
+			type: Date,
+		},
+		favorites: [
 			{
 				type: Schema.Types.ObjectId,
 				ref: 'Product',
