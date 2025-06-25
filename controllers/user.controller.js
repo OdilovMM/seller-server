@@ -8,21 +8,50 @@ class UserController {
 	// [GET] /user/products
 	async getProducts(req, res, next) {
 		try {
-			const products = await productModel.find();
-			return res.json(products);
+			const { searchQuery, filter, category, page, pageSize } = req.query;
+			const skipAmount = (+page - 1) * +pageSize;
+			const query = {};
+
+			if (searchQuery) {
+				const escapedSearchQuery = searchQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+				query.$or = [{ title: { $regex: new RegExp(escapedSearchQuery, 'i') } }];
+			}
+
+			if (category === 'All') query.category = { $exists: true };
+			else if (category !== 'All') {
+				if (category) query.category = category;
+			}
+
+			let sortOptions = { createdAt: -1 };
+			if (filter === 'newest') sortOptions = { createdAt: -1 };
+			else if (filter === 'oldest') sortOptions = { createdAt: 1 };
+
+			const products = await productModel
+				.find(query)
+				.sort(sortOptions)
+				.skip(skipAmount)
+				.limit(+pageSize);
+
+			const totalProducts = await productModel.countDocuments(query);
+			const isNext = totalProducts > skipAmount + +products.length;
+
+			return res.json({ products, isNext });
 		} catch (error) {
 			next(error);
 		}
 	}
+
 	// [GET] /user/product/:id
 	async getProduct(req, res, next) {
+		console.log(req.params.id);
 		try {
 			const product = await productModel.findById(req.params.id);
-			return res.json(product);
+			return res.json({product});
 		} catch (error) {
 			next(error);
 		}
 	}
+
 	// [GET] /user/profile/:id
 	async getProfile(req, res, next) {
 		try {
@@ -32,6 +61,7 @@ class UserController {
 			next(error);
 		}
 	}
+
 	// [GET] /user/orders
 	async getOrders(req, res, next) {
 		try {
@@ -42,6 +72,7 @@ class UserController {
 			next(error);
 		}
 	}
+
 	// [GET] /user/transactions
 	async getTransactions(req, res, next) {
 		try {
@@ -52,6 +83,7 @@ class UserController {
 			next(error);
 		}
 	}
+
 	// [GET] /user/favorites
 	async getFavorites(req, res, next) {
 		try {
@@ -62,6 +94,7 @@ class UserController {
 			next(error);
 		}
 	}
+
 	// [GET] /user/statistics
 	async getStatistics(req, res, next) {
 		try {
@@ -77,6 +110,7 @@ class UserController {
 			next(error);
 		}
 	}
+
 	// [POST] /user/add-favorite
 	async addFavorite(req, res, next) {
 		try {
@@ -90,6 +124,7 @@ class UserController {
 			next(error);
 		}
 	}
+
 	// [PUT] /user/update-profile
 	async updateProfile(req, res, next) {
 		try {
@@ -102,6 +137,7 @@ class UserController {
 			next(error);
 		}
 	}
+
 	// [PUT] /user/update-password
 	async updatePassword(req, res, next) {
 		try {
@@ -119,6 +155,7 @@ class UserController {
 			next(error);
 		}
 	}
+
 	// [DELETE] /user/delete-favorite/:id
 	async deleteFavorite(req, res, next) {
 		try {

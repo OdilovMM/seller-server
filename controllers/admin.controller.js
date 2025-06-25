@@ -15,6 +15,7 @@ class AdminController {
 		this.getTransactions = this.getTransactions.bind(this);
 		this.updateOrder = this.updateOrder.bind(this);
 	}
+
 	// [GET] /admin/products
 	async getProducts(req, res, next) {
 		try {
@@ -50,6 +51,7 @@ class AdminController {
 			next(error);
 		}
 	}
+
 	// [GET] /admin/customers
 	async getCustomers(req, res, next) {
 		try {
@@ -99,6 +101,7 @@ class AdminController {
 			next(error);
 		}
 	}
+
 	// [GET] /admin/orders
 	async getOrders(req, res, next) {
 		try {
@@ -150,19 +153,62 @@ class AdminController {
 			next(error);
 		}
 	}
+
 	// [GET] /admin/transactions
 	async getTransactions(req, res, next) {
 		try {
-			const userId = this.userId;
-			const user = await userModel.findById(userId);
-			if (!user) return res.json({ failure: 'User not found' });
-			if (user.role !== 'admin') return res.json({ failure: 'User is not admin' });
-			const transactions = await transactionModel.find();
-			return res.json({ success: 'Get transactions successfully', transactions });
+			const { searchQuery, filter, page, pageSize } = req.query;
+			const skipAmount = (page - 1) * pageSize;
+			const query = {};
+
+			if (searchQuery) {
+				const escapedSearchQuery = searchQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+				query.$or = [
+					{ 'user.fullName': { $regex: new RegExp(escapedSearchQuery, 'i') } },
+					{ 'user.email': { $regex: new RegExp(escapedSearchQuery, 'i') } },
+					{ 'product.title': { $regex: new RegExp(escapedSearchQuery, 'i') } },
+				];
+			}
+
+			let sortOptions = { createdAt: -1 };
+			if (filter === 'newest') sortOptions = { createdAt: -1 };
+			else if (filter === 'oldest') sortOptions = { createdAt: 1 };
+
+			const transactions = await transactionModel.aggregate([
+				{ $lookup: { from: 'users', localField: 'user', foreignField: '_id', as: 'user' } },
+				{ $unwind: '$user' },
+				{
+					$lookup: { from: 'products', localField: 'product', foreignField: '_id', as: 'product' },
+				},
+				{ $unwind: '$product' },
+				{ $match: query },
+				{ $sort: sortOptions },
+				{ $skip: skipAmount },
+				{ $limit: +pageSize },
+				{
+					$project: {
+						'user.email': 1,
+						'user.fullName': 1,
+						'product.title': 1,
+						'product.price': 1,
+						amount: 1,
+						createdAt: 1,
+						state: 1,
+						provider: 1,
+					},
+				},
+			]);
+
+			const totalTransactions = await transactionModel.countDocuments(query);
+			const isNext = totalTransactions > skipAmount + +transactions.length;
+
+			return res.json({ transactions, isNext });
 		} catch (error) {
+			console.log(error);
 			next(error);
 		}
 	}
+
 	// [POST] /admin/create-product
 	async createProduct(req, res, next) {
 		try {
@@ -173,6 +219,7 @@ class AdminController {
 			next(error);
 		}
 	}
+
 	// [PUT] /admin/update-product/:id
 	async updateProduct(req, res, next) {
 		try {
@@ -185,6 +232,7 @@ class AdminController {
 			next(error);
 		}
 	}
+
 	// [PUT] /admin/update-order/:id
 	async updateOrder(req, res, next) {
 		try {
@@ -201,6 +249,7 @@ class AdminController {
 			next(error);
 		}
 	}
+	
 	// [DELETE] /admin/delete-product/:id
 	async deleteProduct(req, res, next) {
 		try {
