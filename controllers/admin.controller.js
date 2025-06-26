@@ -2,6 +2,7 @@ const userModel = require('../models/user.model');
 const productModel = require('../models/product.model');
 const orderModel = require('../models/order.model');
 const transactionModel = require('../models/transaction.model');
+const mailService = require('../service/mail.service');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 class AdminController {
@@ -263,6 +264,7 @@ class AdminController {
 			});
 
 			await productModel.findByIdAndUpdate(updateProduct._id, { stripePriceId: price.id });
+
 			return res.json({ status: 200 });
 		} catch (error) {
 			console.log(error);
@@ -275,13 +277,13 @@ class AdminController {
 		try {
 			const { status } = req.body;
 			const { id } = req.params;
-			const userId = this.userId;
-			const user = await userModel.findById(userId);
-			if (!user) return res.json({ failure: 'User not found' });
-			if (user.role !== 'admin') return res.json({ failure: 'User is not admin' });
 			const updatedOrder = await orderModel.findByIdAndUpdate(id, { status });
+			const user = await userModel.findById(updatedOrder.user);
+
+			const product = await productModel.findById(updatedOrder.product);
 			if (!updatedOrder) return res.json({ failure: 'Failed while updating order' });
-			return res.json({ success: 'Order updated successfully' });
+			await mailService.sendUpdateMail({ user: req.user, product: product, status });
+			return res.json({ success: 200 });
 		} catch (error) {
 			console.log(error);
 			next(error);

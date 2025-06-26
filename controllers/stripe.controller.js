@@ -2,6 +2,8 @@ const { TransactionState } = require('../enum/transaction.enum');
 const orderModel = require('../models/order.model');
 const productModel = require('../models/product.model');
 const transactionModel = require('../models/transaction.model');
+const userModel = require('../models/user.model');
+const mailService = require('../service/mail.service');
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
@@ -23,6 +25,7 @@ class StripeController {
 			}
 
 			if (eventType === 'payment_intent.payment_failed') {
+				const user = await userModel.findById(data.metadata.userId);
 				console.log('payment failed', data);
 				const product = await productModel.findById(data.metadata.productId);
 				await transactionModel.create({
@@ -32,9 +35,11 @@ class StripeController {
 					amount: product.price,
 					provider: 'stripe',
 				});
+				await mailService.sendCancelMail({ user, product });
 			}
 
 			if (eventType === 'payment_intent.succeeded') {
+				const user = await userModel.findById(data.metadata.userId);
 				console.log('payment succeeded', data);
 				const product = await productModel.findById(data.metadata.productId);
 				await orderModel.create({
@@ -49,6 +54,7 @@ class StripeController {
 					amount: product.price,
 					provider: 'stripe',
 				});
+				await mailService.sendSuccessMail({ user, product });
 			}
 
 			console.log('data', data);
