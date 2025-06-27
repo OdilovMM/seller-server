@@ -9,13 +9,22 @@ const errorMiddleware = require('./middlewares/error.middleware');
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 const stripeController = require('./controllers/stripe.controller');
+const { rateLimit } = require('express-rate-limit');
 
 const app = express();
 
 // webhooks
 app.post('/webhook/stripe', express.raw({ type: 'application/json' }), stripeController.webhook);
 
-// Middlewares
+// Middlewares.
+app.use(
+	rateLimit({
+		windowMs: 1 * 60 * 1000,
+		limit: 300,
+		standardHeaders: 'draft-7',
+		legacyHeaders: false,
+	}),
+);
 app.use(express.json());
 app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 app.use(cookieParser());
