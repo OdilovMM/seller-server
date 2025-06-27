@@ -2,21 +2,31 @@ require('dotenv').config();
 
 const express = require('express');
 const cors = require('cors');
-const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
-const errorMiddleware = require('./middlewares/error.middleware');
-
-const swaggerJsDoc = require('swagger-jsdoc');
-const swaggerUi = require('swagger-ui-express');
-const stripeController = require('./controllers/stripe.controller');
 const { rateLimit } = require('express-rate-limit');
+const morgan = require('morgan');
+const helmet = require('helmet');
+const xss = require('xss-clean');
+const compression = require('compression');
+
+const stripeController = require('./controllers/stripe.controller');
+const errorHandlerMiddleware = require('./middlewares/error-handler');
+const notFoundMiddleware = require('./middlewares/not-found');
 
 const app = express();
+
+// database
+const connectDB = require('./db/connect');
 
 // webhooks
 app.post('/webhook/stripe', express.raw({ type: 'application/json' }), stripeController.webhook);
 
 // Middlewares.
+app.use(helmet());
+if (process.env.NODE_ENV === 'development') {
+	app.use(morgan('dev'));
+}
+
 app.use(
 	rateLimit({
 		windowMs: 1 * 60 * 1000,
@@ -25,45 +35,33 @@ app.use(
 		legacyHeaders: false,
 	}),
 );
+
 app.use(express.json());
 app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
+app.use(xss());
+app.use(compression());
 
-// Swagger configuration
-const swaggerOptions = {
-	definition: {
-		openapi: '3.0.0',
-		info: {
-			title: 'E-commerce API docs',
-			version: '1.0.0',
-			description: 'E-commerce api docs for api test',
-		},
-		servers: [
-			{
-				url: 'http://localhost:8080',
-				description: 'Development server',
-			},
-		],
-	},
-	apis: ['./routes/*.js'], // Path to the API routes folders
-};
-
-const swaggerDocs = swaggerJsDoc(swaggerOptions);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+// Test middleware
+app.use((req, res, next) => {
+	req.requestTime = new Date().toISOString();
+	next();
+});
 
 // Routes
 app.use('/api', require('./routes/index'));
 
 // Error middleware
-app.use(errorMiddleware);
+app.use(notFoundMiddleware);
+app.use(errorHandlerMiddleware);
 
 // App starting
 const bootstrap = async () => {
 	try {
 		const PORT = process.env.PORT || 5050;
-		mongoose.connect(process.env.MONGO_URI).then(() => console.log('Mongoose Connection success!'));
-		app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+		await connectDB(process.env.MONGO_URI);
+		app.listen(PORT, () => console.log(`🌎 Server running on port ${PORT}`));
 	} catch (error) {
 		console.log(error);
 	}
