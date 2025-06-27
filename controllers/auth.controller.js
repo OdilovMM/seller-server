@@ -1,39 +1,16 @@
-const userModel = require('../models/user.model');
-const bcrypt = require('bcrypt');
+const asyncErrorHandler = require('../utils/asyncErrorHandler');
+const authService = require('../service/auth.service');
 
 class AuthController {
-	async login(req, res, next) {
-		try {
-			const { email, password } = req.body;
-			const user = await userModel.findOne({ email });
+	login = asyncErrorHandler(async (req, res) => {
+		const user = await authService.login(req.body);
+		res.json({ user });
+	});
 
-			if (!user) return res.json({ failure: 'User not found' });
-
-			if (user.isDeleted)
-				return res.json({ failure: `User is deleted at ${user.deletedAt.toLocaleString()}` });
-			const isValidPassword = await bcrypt.compare(password, user.password);
-			if (!isValidPassword) return res.json({ failure: 'Password do not match' });
-
-			return res.json({ user });
-		} catch (error) {
-			next(error);
-		}
-	}
-
-	async register(req, res, next) {
-		try {
-			const { email, password, fullName } = req.body;
-			const user = await userModel.findOne({ email });
-			if (user) return res.json({ failure: 'User already exist' });
-
-			const hashedPassword = await bcrypt.hash(password, 10);
-			const newUser = await userModel.create({ email, password: hashedPassword, fullName });
-
-			return res.json({ user: newUser });
-		} catch (error) {
-			next(error);
-		}
-	}
+	register = asyncErrorHandler(async (req, res) => {
+		const user = await authService.register(req.body);
+		res.json({ user });
+	});
 }
 
 module.exports = new AuthController();

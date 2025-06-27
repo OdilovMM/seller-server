@@ -1,33 +1,31 @@
-const BaseError = require('../errors/base.error')
-const jwt = require('jsonwebtoken')
-const userModel = require('../models/user.model')
+const jwt = require('jsonwebtoken');
+const userModel = require('../models/user.model');
+const { UnauthorizedError } = require('../errors');
+const asyncErrorHandler = require('../utils/asyncErrorHandler');
 
-module.exports = async function (req, res, next) {
-	try {
-		const authorization = req.headers.authorization
-		if (!authorization) {
-			return next(BaseError.Unauthorized())
-		}
-
-		const token = authorization.split(' ')[1]
-		if (!token) {
-			return next(BaseError.Unauthorized())
-		}
-
-		const { userId } = jwt.verify(token, process.env.JWT_SECRET)
-		if (!userId) {
-			return next(BaseError.Unauthorized())
-		}
-
-		const user = await userModel.findById(userId)
-
-		if (!user) {
-			return next(BaseError.Unauthorized())
-		}
-
-		req.user = user
-		next()
-	} catch (error) {
-		next(BaseError.Unauthorized())
+const authUserMiddleware = asyncErrorHandler(async (req, res, next) => {
+	const authorization = req.headers.authorization;
+	if (!authorization) {
+		throw new UnauthorizedError('Authorization header missing');
 	}
-}
+
+	const token = authorization.split(' ')[1];
+	if (!token) {
+		throw new UnauthorizedError('Token not provided');
+	}
+
+	const decoded = jwt.verify(token, process.env.JWT_SECRET);
+	if (!decoded?.userId) {
+		throw new UnauthorizedError('Invalid token payload');
+	}
+
+	const user = await userModel.findById(decoded.userId);
+	if (!user) {
+		throw new UnauthorizedError('User not found');
+	}
+
+	req.user = user;
+	next();
+});
+
+module.exports = authUserMiddleware;

@@ -6,7 +6,6 @@ const cookieParser = require('cookie-parser');
 const { rateLimit } = require('express-rate-limit');
 const morgan = require('morgan');
 const helmet = require('helmet');
-const xss = require('xss-clean');
 const compression = require('compression');
 
 const stripeController = require('./controllers/stripe.controller');
@@ -40,7 +39,6 @@ app.use(express.json());
 app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
-app.use(xss());
 app.use(compression());
 
 // Test middleware

@@ -1,324 +1,46 @@
-const userModel = require('../models/user.model');
-const productModel = require('../models/product.model');
-const orderModel = require('../models/order.model');
-const transactionModel = require('../models/transaction.model');
-const mailService = require('../service/mail.service');
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const asyncErrorHandler = require('../utils/asyncErrorHandler');
+const adminService = require('../service/admin.service');
 
 class AdminController {
-	constructor() {
-		this.createProduct = this.createProduct.bind(this);
-		this.updateProduct = this.updateProduct.bind(this);
-		this.deleteProduct = this.deleteProduct.bind(this);
-		this.getProducts = this.getProducts.bind(this);
-		this.getCustomers = this.getCustomers.bind(this);
-		this.getOrders = this.getOrders.bind(this);
-		this.getTransactions = this.getTransactions.bind(this);
-		this.updateOrder = this.updateOrder.bind(this);
-	}
+	getProducts = asyncErrorHandler(async (req, res) => {
+		const result = await adminService.getProducts(req.query);
+		res.json(result);
+	});
 
-	// [GET] /admin/products
-	async getProducts(req, res, next) {
-		try {
-			const { searchQuery, filter, category, page, pageSize } = req.query;
-			const skipAmount = (+page - 1) * +pageSize;
-			const query = {};
+	getCustomers = asyncErrorHandler(async (req, res) => {
+		const result = await adminService.getCustomers(req.query);
+		res.json(result);
+	});
 
-			if (searchQuery) {
-				const escapedSearchQuery = searchQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-				query.$or = [{ title: { $regex: new RegExp(escapedSearchQuery, 'i') } }];
-			}
+	getOrders = asyncErrorHandler(async (req, res) => {
+		const result = await adminService.getOrders(req.query);
+		res.json(result);
+	});
 
-			if (category === 'All') query.category = { $exists: true };
-			else if (category !== 'All') {
-				if (category) query.category = category;
-			}
+	getTransactions = asyncErrorHandler(async (req, res) => {
+		const result = await adminService.getTransactions(req.query);
+		res.json(result);
+	});
 
-			let sortOptions = { createdAt: -1 };
-			if (filter === 'newest') sortOptions = { createdAt: -1 };
-			else if (filter === 'oldest') sortOptions = { createdAt: 1 };
+	createProduct = asyncErrorHandler(async (req, res) => {
+		const result = await adminService.createProduct(req.user._id, req.body);
+		res.status(201).json(result);
+	});
 
-			const products = await productModel
-				.find(query)
-				.sort(sortOptions)
-				.skip(skipAmount)
-				.limit(+pageSize);
+	updateProduct = asyncErrorHandler(async (req, res) => {
+		const result = await adminService.updateProduct(req.user._id, req.params.id, req.body);
+		res.status(200).json(result);
+	});
 
-			const totalProducts = await productModel.countDocuments(query);
-			const isNext = totalProducts > skipAmount + +products.length;
+	updateOrder = asyncErrorHandler(async (req, res) => {
+		const result = await adminService.updateOrder(req.params.id, req.body.status, req.user);
+		res.json(result);
+	});
 
-			return res.json({ products, isNext });
-		} catch (error) {
-			console.log(error);
-			next(error);
-		}
-	}
-
-	// [GET] /admin/customers
-	async getCustomers(req, res, next) {
-		try {
-			const { searchQuery, filter, category, page, pageSize } = req.query;
-			const skipAmount = (+page - 1) * +pageSize;
-			const query = {};
-
-			if (searchQuery) {
-				const escapedSearchQuery = searchQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-				query.$or = [
-					{ fullName: { $regex: new RegExp(escapedSearchQuery, 'i') } },
-					{ email: { $regex: new RegExp(escapedSearchQuery, 'i') } },
-				];
-			}
-			let sortOptions = { createdAt: -1 };
-			if (filter === 'newest') sortOptions = { createdAt: -1 };
-			else if (filter === 'oldest') sortOptions = { createdAt: 1 };
-
-			const customers = await userModel.aggregate([
-				{ $match: query },
-				{ $lookup: { from: 'orders', localField: '_id', foreignField: 'user', as: 'orders' } },
-				{ $addFields: { orderCount: { $size: '$orders' } } },
-				{ $unwind: { path: '$orders', preserveNullAndEmptyArrays: true } },
-				{
-					$group: {
-						_id: '$_id',
-						email: { $first: '$email' },
-						fullName: { $first: '$fullName' },
-						role: { $first: '$role' },
-						createdAt: { $first: '$createdAt' },
-						updatedAt: { $first: '$updatedAt' },
-						totalPrice: { $sum: '$orders.price' },
-						orderCount: { $first: '$orderCount' },
-						isDeleted: { $first: '$isDeleted' },
-					},
-				},
-				{ $sort: sortOptions },
-				{ $skip: skipAmount },
-				{ $limit: +pageSize },
-			]);
-
-			const totalCustomers = await userModel.countDocuments(query);
-			const isNext = totalCustomers > skipAmount + +customers.length;
-
-			return res.json({ customers, isNext });
-		} catch (error) {
-			console.log(error);
-			next(error);
-		}
-	}
-
-	// [GET] /admin/orders
-	async getOrders(req, res, next) {
-		try {
-			const { searchQuery, filter, page, pageSize } = req.query;
-			const skipAmount = (page - 1) * pageSize;
-			const query = {};
-
-			if (searchQuery) {
-				const escapedSearchQuery = searchQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-				query.$or = [
-					{ 'user.fullName': { $regex: new RegExp(escapedSearchQuery, 'i') } },
-					{ 'user.email': { $regex: new RegExp(escapedSearchQuery, 'i') } },
-					{ 'product.title': { $regex: new RegExp(escapedSearchQuery, 'i') } },
-				];
-			}
-
-			let sortOptions = { createdAt: -1 };
-			if (filter === 'newest') sortOptions = { createdAt: -1 };
-			else if (filter === 'oldest') sortOptions = { createdAt: 1 };
-
-			const orders = await orderModel.aggregate([
-				{ $lookup: { from: 'users', localField: 'user', foreignField: '_id', as: 'user' } },
-				{ $unwind: '$user' },
-				{
-					$lookup: { from: 'products', localField: 'product', foreignField: '_id', as: 'product' },
-				},
-				{ $unwind: '$product' },
-				{ $match: query },
-				{ $sort: sortOptions },
-				{ $skip: skipAmount },
-				{ $limit: +pageSize },
-				{
-					$project: {
-						'user.email': 1,
-						'user.fullName': 1,
-						'product.title': 1,
-						price: 1,
-						createdAt: 1,
-						status: 1,
-					},
-				},
-			]);
-
-			const totalOrders = await orderModel.countDocuments(query);
-			const isNext = totalOrders > skipAmount + +orders.length;
-
-			return res.json({ orders, isNext });
-		} catch (error) {
-			console.log(error);
-			next(error);
-		}
-	}
-
-	// [GET] /admin/transactions
-	async getTransactions(req, res, next) {
-		try {
-			const { searchQuery, filter, page, pageSize } = req.query;
-			const skipAmount = (page - 1) * pageSize;
-			const query = {};
-
-			if (searchQuery) {
-				const escapedSearchQuery = searchQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-				query.$or = [
-					{ 'user.fullName': { $regex: new RegExp(escapedSearchQuery, 'i') } },
-					{ 'user.email': { $regex: new RegExp(escapedSearchQuery, 'i') } },
-					{ 'product.title': { $regex: new RegExp(escapedSearchQuery, 'i') } },
-				];
-			}
-
-			let sortOptions = { createdAt: -1 };
-			if (filter === 'newest') sortOptions = { createdAt: -1 };
-			else if (filter === 'oldest') sortOptions = { createdAt: 1 };
-
-			const transactions = await transactionModel.aggregate([
-				{ $lookup: { from: 'users', localField: 'user', foreignField: '_id', as: 'user' } },
-				{ $unwind: '$user' },
-				{
-					$lookup: { from: 'products', localField: 'product', foreignField: '_id', as: 'product' },
-				},
-				{ $unwind: '$product' },
-				{ $match: query },
-				{ $sort: sortOptions },
-				{ $skip: skipAmount },
-				{ $limit: +pageSize },
-				{
-					$project: {
-						'user.email': 1,
-						'user.fullName': 1,
-						'product.title': 1,
-						'product.price': 1,
-						amount: 1,
-						createdAt: 1,
-						state: 1,
-						provider: 1,
-					},
-				},
-			]);
-
-			const totalTransactions = await transactionModel.countDocuments(query);
-			const isNext = totalTransactions > skipAmount + +transactions.length;
-
-			return res.json({ transactions, isNext });
-		} catch (error) {
-			console.log(error);
-			next(error);
-		}
-	}
-
-	// [POST] /admin/create-product
-	async createProduct(req, res, next) {
-		try {
-			const userId = req.user._id;
-			const newProduct = await productModel.create(req.body);
-			if (!newProduct) return res.json({ failure: 'Fail while creating product' });
-
-			const product = await stripe.products.create({
-				name: newProduct.title,
-				images: [newProduct.image],
-				metadata: { productId: newProduct._id.toString(), userId: userId.toString() },
-			});
-			const exchangeRate = 12500;
-			const amountInUSD = newProduct.price / exchangeRate;
-
-			const price = await stripe.prices.create({
-				product: product.id,
-				unit_amount: amountInUSD.toFixed(0) * 100,
-				currency: 'usd',
-				metadata: { productId: newProduct._id.toString(), userId: userId.toString() },
-			});
-			await productModel.findByIdAndUpdate(newProduct._id, {
-				stripeProductId: product.id,
-				stripePriceId: price.id,
-			});
-			return res.json({ status: 201 });
-		} catch (error) {
-			console.log(error);
-			next(error);
-		}
-	}
-
-	// [PUT] /admin/update-product/:id
-	async updateProduct(req, res, next) {
-		try {
-			const data = req.body;
-			const { id } = req.params;
-			const userId = req.user._id;
-			const updateProduct = await productModel.findByIdAndUpdate(id, data, { new: true });
-
-			const exchangeRate = 12500;
-			const amountInUSD = updateProduct.price / exchangeRate;
-
-			const price = await stripe.prices.create({
-				product: updateProduct.stripeProductId,
-				unit_amount: amountInUSD.toFixed(0) * 100,
-				currency: 'usd',
-				metadata: { productId: updateProduct._id.toString(), userId: userId.toString() },
-			});
-
-			await productModel.findByIdAndUpdate(updateProduct._id, { stripePriceId: price.id });
-
-			return res.json({ status: 200 });
-		} catch (error) {
-			console.log(error);
-			next(error);
-		}
-	}
-
-	// [PUT] /admin/update-order/:id
-	async updateOrder(req, res, next) {
-		try {
-			const { status } = req.body;
-			const { id } = req.params;
-			const updatedOrder = await orderModel.findByIdAndUpdate(id, { status });
-			const user = await userModel.findById(updatedOrder.user);
-
-			const product = await productModel.findById(updatedOrder.product);
-			if (!updatedOrder) return res.json({ failure: 'Failed while updating order' });
-			await mailService.sendUpdateMail({ user: req.user, product: product, status });
-			return res.json({ success: 200 });
-		} catch (error) {
-			console.log(error);
-			next(error);
-		}
-	}
-
-	// [DELETE] /admin/delete-product/:id
-	async deleteProduct(req, res, next) {
-		try {
-			const { id } = req.params;
-
-			const product = await productModel.findById(id);
-
-			if (!product) {
-				return res.status(404).json({ failure: 'Product not found' });
-			}
-			if (product.stripePriceId) {
-				await stripe.prices.update(product.stripePriceId, { active: false });
-			} else {
-				console.warn(`Missing stripePriceId for product ${id}`);
-			}
-
-			if (product.stripeProductId) {
-				await stripe.products.update(product.stripeProductId, { active: false });
-			} else {
-				console.warn(`Missing stripeProductId for product ${id}`);
-			}
-
-			await productModel.findByIdAndDelete(id);
-			return res.status(200).json({ status: 204 });
-		} catch (error) {
-			console.log(error);
-			next(error);
-		}
-	}
+	deleteProduct = asyncErrorHandler(async (req, res) => {
+		const result = await adminService.deleteProduct(req.params.id);
+		res.status(result.status).json(result);
+	});
 }
 
 module.exports = new AdminController();

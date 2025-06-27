@@ -1,25 +1,18 @@
 const mailService = require('../service/mail.service');
+const asyncErrorHandler = require('../utils/asyncErrorHandler');
 
 class OtpController {
-	async sendOtp(req, res, next) {
-		try {
-			const { email } = req.body;
-			await mailService.sendOtpMail(email);
-			res.json({ status: 200 });
-		} catch (error) {
-			next(error);
-		}
-	}
+	sendOtp = asyncErrorHandler(async (req, res) => {
+		const { email } = req.body;
+		await mailService.sendOtpMail(email);
+		res.json({ status: 200 });
+	});
 
-	async verifyOtp(req, res, next) {
-		try {
-			const { email, otp } = req.body;
-			const result = await mailService.verifyOtp(email, otp);
-			res.json(result);
-		} catch (error) {
-			next(error);
-		}
-	}
+	verifyOtp = asyncErrorHandler(async (req, res) => {
+		const { email, otp } = req.body;
+		const result = await mailService.verifyOtp(email, otp);
+		res.json(result);
+	});
 }
 
 module.exports = new OtpController();
