@@ -1,0 +1,5 @@
+2025-08-04 21:52:33 [[31merror[39m] : [ConnectDB.js] Failed to connect to MongoDB: bad auth : authentication failed
+2025-08-04 21:53:16 [[31merror[39m] : [ConnectDB.js] Failed to connect to MongoDB: bad auth : authentication failed
+2025-08-05 20:16:38 [[31merror[39m] : [ErrorHandler] 404 - User not found
+2025-08-05 20:19:18 [[31merror[39m] : [ErrorHandler] 404 - User not found
+2025-08-05 20:19:58 [[31merror[39m] : [ErrorHandler] 404 - User not found

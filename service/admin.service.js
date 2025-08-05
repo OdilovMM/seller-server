@@ -4,9 +4,12 @@ const orderModel = require('../models/order.model');
 const transactionModel = require('../models/transaction.model');
 const mailService = require('../service/mail.service');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const logger = require('../logger');
 
 class AdminService {
 	async getProducts(queryParams) {
+		logger.debug(`[AdminService] getProducts called with ${JSON.stringify(queryParams)}`);
+
 		const { searchQuery, filter, category, page, pageSize } = queryParams;
 		const skipAmount = (+page - 1) * +pageSize;
 		const query = {};
@@ -32,10 +35,12 @@ class AdminService {
 		const totalProducts = await productModel.countDocuments(query);
 		const isNext = totalProducts > skipAmount + +products.length;
 
+		logger.info(`[AdminService] Found ${products.length} products`);
 		return { products, isNext };
 	}
 
 	async getCustomers(queryParams) {
+		logger.debug(`[AdminService] getCustomers called with ${JSON.stringify(queryParams)}`);
 		const { searchQuery, filter, page, pageSize } = queryParams;
 		const skipAmount = (+page - 1) * +pageSize;
 		const query = {};
@@ -78,10 +83,13 @@ class AdminService {
 		const totalCustomers = await userModel.countDocuments(query);
 		const isNext = totalCustomers > skipAmount + +customers.length;
 
+		logger.info(`[AdminService] Found ${customers.length} customers`);
 		return { customers, isNext };
 	}
 
 	async getOrders(queryParams) {
+		logger.debug(`[AdminService] getOrders called with ${JSON.stringify(queryParams)}`);
+		
 		const { searchQuery, filter, page, pageSize } = queryParams;
 		const skipAmount = (page - 1) * pageSize;
 		const query = {};
@@ -123,10 +131,14 @@ class AdminService {
 		const totalOrders = await orderModel.countDocuments(query);
 		const isNext = totalOrders > skipAmount + +orders.length;
 
+		logger.info(`[AdminService] Found ${orders.length} orders`);
+
 		return { orders, isNext };
 	}
 
 	async getTransactions(queryParams) {
+		logger.debug(`[AdminService] getTransactions called with ${JSON.stringify(queryParams)}`);
+
 		const { searchQuery, filter, page, pageSize } = queryParams;
 		const skipAmount = (page - 1) * pageSize;
 		const query = {};
@@ -170,10 +182,13 @@ class AdminService {
 		const totalTransactions = await transactionModel.countDocuments(query);
 		const isNext = totalTransactions > skipAmount + +transactions.length;
 
+		logger.info(`[AdminService] Found ${transactions.length} transactions`);
 		return { transactions, isNext };
 	}
 
 	async createProduct(userId, productData) {
+		logger.debug(`[AdminService] createProduct called with ${JSON.stringify(productData)}`);
+
 		const newProduct = await productModel.create(productData);
 		if (!newProduct) throw new Error('Fail while creating product');
 
@@ -193,15 +208,19 @@ class AdminService {
 			metadata: { productId: newProduct._id.toString(), userId: userId.toString() },
 		});
 
+		logger.info(`[AdminService] created ${newProduct} products`);
+
 		await productModel.findByIdAndUpdate(newProduct._id, {
 			stripeProductId: product.id,
 			stripePriceId: price.id,
 		});
 
-		return { status: 201 };
+		return { status: 201, newProduct };
 	}
 
 	async updateProduct(userId, productId, updateData) {
+		logger.debug(`[AdminService] updateProduct called with id of ${JSON.stringify(productId)} with ${JSON.stringify(updateData)}`);
+
 		const updateProduct = await productModel.findByIdAndUpdate(productId, updateData, {
 			new: true,
 		});
@@ -219,10 +238,12 @@ class AdminService {
 
 		await productModel.findByIdAndUpdate(updateProduct._id, { stripePriceId: price.id });
 
-		return { status: 200 };
+		logger.info(`[AdminService] updated ${updateProduct} product`);
+		return { status: 200, updateProduct };
 	}
 
 	async updateOrder(orderId, status, adminUser) {
+		logger.debug(`[AdminService] updateOrder called with id of ${JSON.stringify(orderId)} with ${JSON.stringify(status)}`);
 		const updatedOrder = await orderModel.findByIdAndUpdate(orderId, { status }, { new: true });
 		if (!updatedOrder) throw new Error('Failed while updating order');
 
@@ -231,10 +252,12 @@ class AdminService {
 
 		await mailService.sendUpdateMail({ user: adminUser, product, status });
 
-		return { success: 200 };
+		logger.info(`[AdminService] updated Order ${updatedOrder, status}`);
+		return { success: 200, updatedOrder };
 	}
 
 	async deleteProduct(productId) {
+		logger.debug(`[AdminService] deleteProduct called with id of ${JSON.stringify(productId)}`);
 		const product = await productModel.findById(productId);
 
 		if (!product) {
@@ -252,8 +275,8 @@ class AdminService {
 		}
 
 		await productModel.findByIdAndDelete(productId);
-
-		return { status: 204 };
+		logger.info(`[AdminService] deleteProduct ${product}`);
+		return { status: 204, product };
 	}
 }
 

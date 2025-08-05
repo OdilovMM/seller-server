@@ -1,4 +1,6 @@
 const { StatusCodes } = require('http-status-codes');
+const logger = require('../logger');
+
 
 
 const errorHandlerMiddleware = (err, req, res, next) => {
@@ -23,6 +25,8 @@ const errorHandlerMiddleware = (err, req, res, next) => {
 		customError.msg = `No item found with id : ${err.value}`;
 		customError.statusCode = 404;
 	}
+	logger.error(`[ErrorHandler] ${customError.statusCode} - ${customError.msg}`);
+	logger.debug(err.stack); // full stack trace for debugging (can be toggled by env)
 
 	return res.status(customError.statusCode).json({ msg: customError.msg });
 };

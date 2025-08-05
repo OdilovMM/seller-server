@@ -1,13 +1,15 @@
 const mongoose = require('mongoose');
+const logger = require('../logger');
+
 
 const connectDB = url => {
 	return mongoose
 		.connect(url)
 		.then(() => {
-			console.log('✅ Successfully connected to MongoDB');
+			logger.info(' [ConnectDB.js] Successfully connected to MongoDB');
 		})
 		.catch(err => {
-			console.error('❌ Failed to connect to MongoDB:', err);
+			logger.error('[ConnectDB.js] Failed to connect to MongoDB:', err);
 			process.exit(1); 
 		});
 };

@@ -1,0 +1,213 @@
+2025-08-05 18:14:29 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 18:14:29 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 18:17:19 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 18:17:19 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 18:17:31 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 18:17:31 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 18:20:22 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 18:20:22 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 18:22:30 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 18:22:30 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 18:23:35 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 18:23:35 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 18:24:26 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 18:24:26 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 18:25:11 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 18:25:11 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 18:25:35 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 18:25:35 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 18:28:38 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 18:28:38 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 18:28:47 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 18:28:47 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 18:32:59 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 18:32:59 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 18:33:32 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 18:33:32 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 18:33:58 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 18:33:58 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 18:34:24 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 18:34:24 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 18:36:20 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 18:36:20 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 18:36:45 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 18:36:45 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 18:38:02 [[32minfo[39m] : GET /api/user/products?searchQuery=&filter=&category=&page=1&pageSize=6
+2025-08-05 18:38:02 [[32minfo[39m] : GET /api/user/profile/685d730b476d307a9e0d6b53
+2025-08-05 18:38:08 [[32minfo[39m] : GET /api/user/profile/685d730b476d307a9e0d6b53
+2025-08-05 18:38:12 [[32minfo[39m] : GET /api/user/profile/685d730b476d307a9e0d6b53
+2025-08-05 18:38:16 [[32minfo[39m] : GET /api/user/profile/685d730b476d307a9e0d6b53
+2025-08-05 18:38:17 [[32minfo[39m] : GET /api/user/profile/685d730b476d307a9e0d6b53
+2025-08-05 18:38:17 [[32minfo[39m] : GET /api/admin/customers?searchQuery=&filter=&category=&page=1&pageSize=6
+2025-08-05 18:38:17 [[32minfo[39m] : [AdminController] Fetching customers | User: dssrinman@gmail.com
+2025-08-05 18:38:17 [[32minfo[39m] : [AdminService] Found 2 customers
+2025-08-05 18:38:17 [[32minfo[39m] : [AdminController] Customers fetched: 2
+2025-08-05 18:38:31 [[32minfo[39m] : GET /api/user/profile/685d730b476d307a9e0d6b53
+2025-08-05 18:38:31 [[32minfo[39m] : GET /api/admin/products?searchQuery=&filter=&category=&page=1&pageSize=6
+2025-08-05 18:38:31 [[32minfo[39m] : [AdminController] Fetching products | User: dssrinman@gmail.com
+2025-08-05 18:38:31 [[32minfo[39m] : [AdminService] Found 6 products
+2025-08-05 18:38:31 [[32minfo[39m] : [AdminController] Products fetched: 6
+2025-08-05 18:38:41 [[32minfo[39m] : GET /api/user/profile/685d730b476d307a9e0d6b53
+2025-08-05 18:38:41 [[32minfo[39m] : GET /api/admin/products?searchQuery=&filter=&category=&page=2&pageSize=6
+2025-08-05 18:38:41 [[32minfo[39m] : [AdminController] Fetching products | User: dssrinman@gmail.com
+2025-08-05 18:38:42 [[32minfo[39m] : [AdminService] Found 4 products
+2025-08-05 18:38:42 [[32minfo[39m] : [AdminController] Products fetched: 4
+2025-08-05 18:38:48 [[32minfo[39m] : GET /api/user/profile/685d730b476d307a9e0d6b53
+2025-08-05 18:38:48 [[32minfo[39m] : DELETE /api/admin/delete-product/687b8ebe1c0f8439b50a1bd9
+2025-08-05 18:38:48 [[32minfo[39m] : [AdminController] delete product with 687b8ebe1c0f8439b50a1bd9 id with undefined data  | User: dssrinman@gmail.com
+2025-08-05 18:38:49 [[32minfo[39m] : [AdminService] deleteProduct {
+  _id: new ObjectId('687b8ebe1c0f8439b50a1bd9'),
+  title: 'Adidas',
+  category: 'Shoes',
+  price: 1250,
+  description: 'Adidas airmax',
+  image: 'https://utfs.io/f/XPmXHTNQn0kl35dwdnLJPr9VgHOL0XT4doMRxFNWYqa6kvp7',
+  imageKey: 'XPmXHTNQn0kl35dwdnLJPr9VgHOL0XT4doMRxFNWYqa6kvp7',
+  createdAt: 2025-07-19T12:25:34.071Z,
+  updatedAt: 2025-07-19T12:25:34.803Z,
+  __v: 0,
+  stripePriceId: 'price_1RmZpaQ4lBhBuMOJl1tQH6Md',
+  stripeProductId: 'prod_ShzpuWkmki725q'
+}
+2025-08-05 18:38:49 [[32minfo[39m] : [AdminController] An delete product {
+  _id: new ObjectId('687b8ebe1c0f8439b50a1bd9'),
+  title: 'Adidas',
+  category: 'Shoes',
+  price: 1250,
+  description: 'Adidas airmax',
+  image: 'https://utfs.io/f/XPmXHTNQn0kl35dwdnLJPr9VgHOL0XT4doMRxFNWYqa6kvp7',
+  imageKey: 'XPmXHTNQn0kl35dwdnLJPr9VgHOL0XT4doMRxFNWYqa6kvp7',
+  createdAt: 2025-07-19T12:25:34.071Z,
+  updatedAt: 2025-07-19T12:25:34.803Z,
+  __v: 0,
+  stripePriceId: 'price_1RmZpaQ4lBhBuMOJl1tQH6Md',
+  stripeProductId: 'prod_ShzpuWkmki725q'
+} with status 204
+2025-08-05 18:38:49 [[32minfo[39m] : GET /api/user/profile/685d730b476d307a9e0d6b53
+2025-08-05 18:38:49 [[32minfo[39m] : GET /api/user/profile/685d730b476d307a9e0d6b53
+2025-08-05 18:38:49 [[32minfo[39m] : GET /api/user/profile/685d730b476d307a9e0d6b53
+2025-08-05 18:38:49 [[32minfo[39m] : GET /api/admin/products?searchQuery=&filter=&category=&page=2&pageSize=6
+2025-08-05 18:38:49 [[32minfo[39m] : [AdminController] Fetching products | User: dssrinman@gmail.com
+2025-08-05 18:38:49 [[32minfo[39m] : [AdminService] Found 3 products
+2025-08-05 18:38:49 [[32minfo[39m] : [AdminController] Products fetched: 3
+2025-08-05 18:39:08 [[32minfo[39m] : GET /api/user/profile/685d730b476d307a9e0d6b53
+2025-08-05 18:39:08 [[32minfo[39m] : GET /api/admin/orders?searchQuery=&filter=&page=1&pageSize=6
+2025-08-05 18:39:08 [[32minfo[39m] : [AdminController] Fetching orders | User: dssrinman@gmail.com
+2025-08-05 18:39:08 [[32minfo[39m] : [AdminService] Found 0 orders
+2025-08-05 18:39:08 [[32minfo[39m] : [AdminController] Orders fetched: 0
+2025-08-05 18:39:20 [[32minfo[39m] : GET /api/user/profile/685d730b476d307a9e0d6b53
+2025-08-05 18:39:20 [[32minfo[39m] : GET /api/admin/transactions?searchQuery=&filter=&page=1&pageSize=6
+2025-08-05 18:39:20 [[32minfo[39m] : [AdminController] Fetching transactions | User: dssrinman@gmail.com
+2025-08-05 18:39:20 [[32minfo[39m] : [AdminService] Found 0 transactions
+2025-08-05 18:39:20 [[32minfo[39m] : [AdminController] Transactions fethced: 0
+2025-08-05 18:58:04 [[32minfo[39m] : GET /
+2025-08-05 18:58:10 [[32minfo[39m] : GET /
+2025-08-05 18:58:16 [[32minfo[39m] : GET /favicon.ico
+2025-08-05 18:58:24 [[32minfo[39m] : GET /security.txt
+2025-08-05 19:03:11 [[32minfo[39m] : GET /xxl-job-admin/toLogin
+2025-08-05 19:42:00 [[32minfo[39m] : GET /api/user/profile/685d730b476d307a9e0d6b53
+2025-08-05 19:43:30 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 19:43:30 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 19:43:54 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 19:43:54 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 19:45:19 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 19:45:19 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 19:45:41 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 19:45:41 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 19:45:51 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 19:45:51 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 19:46:25 [[32minfo[39m] : POST /api/otp/send-otp
+2025-08-05 19:48:02 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 19:48:02 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 19:48:40 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 19:48:40 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 19:48:59 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 19:48:59 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 19:50:18 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 19:50:18 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 19:50:26 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 19:50:26 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 19:51:07 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 19:51:07 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 19:51:10 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 19:51:10 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 19:51:24 [[32minfo[39m] : POST /api/otp/send-otp
+2025-08-05 19:51:24 [[32minfo[39m] : [OtpController] Send otp controller: [object Object]
+2025-08-05 19:52:37 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 19:52:37 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 19:52:44 [[32minfo[39m] : POST /api/otp/send-otp
+2025-08-05 19:52:44 [[32minfo[39m] : [OtpController] Send otp controller: sample@gmail.com
+2025-08-05 19:54:01 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 19:54:01 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 19:54:28 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 19:54:28 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 19:55:15 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 19:55:15 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 19:55:55 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 19:55:55 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 19:57:09 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 19:57:09 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 19:57:48 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 19:57:48 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 19:58:29 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 19:58:29 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 20:01:38 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 20:01:38 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 20:02:16 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 20:02:16 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 20:02:46 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 20:02:46 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 20:03:11 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 20:03:11 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 20:04:24 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 20:04:24 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 20:06:51 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 20:06:51 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 20:06:59 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 20:06:59 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 20:07:14 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 20:07:14 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 20:08:00 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 20:08:00 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 20:08:26 [[32minfo[39m] : [MailService] Mail transporter initialized
+2025-08-05 20:08:27 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 20:08:27 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 20:08:52 [[32minfo[39m] : POST /api/otp/send-otp
+2025-08-05 20:08:52 [[32minfo[39m] : [OtpController] Sending OTP to: sample@gmail.com
+2025-08-05 20:08:52 [[32minfo[39m] : [MailService] Generating OTP for: sample@gmail.com
+2025-08-05 20:08:52 [[32minfo[39m] : [MailService] Cleared previous OTPs for: sample@gmail.com
+2025-08-05 20:08:52 [[32minfo[39m] : [MailService] New OTP saved for: sample@gmail.com
+2025-08-05 20:08:56 [[32minfo[39m] : [MailService] OTP email sent to: sample@gmail.com
+2025-08-05 20:08:56 [[32minfo[39m] : [OtpController] OTP sent successfully to: sample@gmail.com
+2025-08-05 20:11:41 [[32minfo[39m] : [MailService] Mail transporter initialized
+2025-08-05 20:11:42 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 20:11:42 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 20:12:53 [[32minfo[39m] : [MailService] Mail transporter initialized
+2025-08-05 20:12:54 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 20:12:54 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 20:13:40 [[32minfo[39m] : [MailService] Mail transporter initialized
+2025-08-05 20:13:42 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 20:13:42 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 20:15:50 [[32minfo[39m] : [MailService] Mail transporter initialized
+2025-08-05 20:15:51 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 20:15:51 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 20:16:01 [[32minfo[39m] : [MailService] Mail transporter initialized
+2025-08-05 20:16:02 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 20:16:02 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 20:16:38 [[32minfo[39m] : POST /api/auth/login
+2025-08-05 20:16:38 [[32minfo[39m] : [AuthController] Login User data sent | User: [object Object]
+2025-08-05 20:16:38 [[31merror[39m] : [ErrorHandler] 404 - User not found
+2025-08-05 20:18:49 [[32minfo[39m] : [MailService] Mail transporter initialized
+2025-08-05 20:18:50 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 20:18:50 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 20:19:13 [[32minfo[39m] : [MailService] Mail transporter initialized
+2025-08-05 20:19:15 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-05 20:19:15 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-05 20:19:18 [[32minfo[39m] : POST /api/auth/login
+2025-08-05 20:19:18 [[32minfo[39m] : [AuthController] Login attempt | Email: johndoeyyd@gmail.com
+2025-08-05 20:19:18 [[33mwarn[39m] : [AuthService] Login failed - User not found | Email: johndoeyyd@gmail.com
+2025-08-05 20:19:18 [[31merror[39m] : [ErrorHandler] 404 - User not found
+2025-08-05 20:19:58 [[32minfo[39m] : POST /api/auth/login
+2025-08-05 20:19:58 [[32minfo[39m] : [AuthController] Login attempt | Email: nodirabegim9815@gmail.com
+2025-08-05 20:19:58 [[33mwarn[39m] : [AuthService] Login failed - User not found | Email: nodirabegim9815@gmail.com
+2025-08-05 20:19:58 [[31merror[39m] : [ErrorHandler] 404 - User not found

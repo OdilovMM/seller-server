@@ -1,0 +1,119 @@
+2025-08-04 20:59:49 [[32minfo[39m] : GET /
+2025-08-04 20:59:49 [[32minfo[39m] : GET /favicon.ico
+2025-08-04 21:09:49 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-04 21:09:51 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-04 21:10:09 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-04 21:10:09 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-04 21:12:05 [[32minfo[39m] : GET /
+2025-08-04 21:12:56 [[32minfo[39m] : GET /api/user/products?searchQuery=&filter=&category=&page=1&pageSize=6
+2025-08-04 21:12:56 [[32minfo[39m] : GET /api/user/profile/685d730b476d307a9e0d6b53
+2025-08-04 21:13:08 [[32minfo[39m] : GET /api/user/profile/685d730b476d307a9e0d6b53
+2025-08-04 21:13:12 [[32minfo[39m] : GET /api/user/profile/685d730b476d307a9e0d6b53
+2025-08-04 21:13:17 [[32minfo[39m] : GET /api/user/profile/685d730b476d307a9e0d6b53
+2025-08-04 21:13:17 [[32minfo[39m] : GET /api/user/profile/685d730b476d307a9e0d6b53
+2025-08-04 21:13:17 [[32minfo[39m] : GET /api/admin/customers?searchQuery=&filter=&category=&page=1&pageSize=6
+2025-08-04 21:13:35 [[32minfo[39m] : GET /api/user/profile/685d730b476d307a9e0d6b53
+2025-08-04 21:13:35 [[32minfo[39m] : GET /api/admin/products?searchQuery=&filter=&category=&page=1&pageSize=6
+2025-08-04 21:13:35 [[32minfo[39m] : [AdminController] Fetching products | User: dssrinman@gmail.com
+2025-08-04 21:13:35 [[32minfo[39m] : [AdminService] Found 6 products
+2025-08-04 21:13:35 [[32minfo[39m] : [AdminController] Products fetched: 6
+2025-08-04 21:14:12 [[32minfo[39m] : GET /api/user/products?searchQuery=&filter=&category=&page=1&pageSize=6
+2025-08-04 21:14:26 [[32minfo[39m] : GET /api/user/profile/685d730b476d307a9e0d6b53
+2025-08-04 21:14:26 [[32minfo[39m] : GET /api/admin/customers?searchQuery=&filter=&category=&page=1&pageSize=6
+2025-08-04 21:14:30 [[32minfo[39m] : GET /api/user/profile/685d730b476d307a9e0d6b53
+2025-08-04 21:14:30 [[32minfo[39m] : GET /api/admin/products?searchQuery=&filter=&category=&page=1&pageSize=6
+2025-08-04 21:14:30 [[32minfo[39m] : [AdminController] Fetching products | User: dssrinman@gmail.com
+2025-08-04 21:14:30 [[32minfo[39m] : [AdminService] Found 6 products
+2025-08-04 21:14:30 [[32minfo[39m] : [AdminController] Products fetched: 6
+2025-08-04 21:18:40 [[32minfo[39m] : GET /
+2025-08-04 21:26:00 [[32minfo[39m] : GET /
+2025-08-04 21:40:32 [[32minfo[39m] : GET /api/user/profile/685d730b476d307a9e0d6b53
+2025-08-04 21:41:01 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-04 21:41:01 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-04 21:41:58 [[32minfo[39m] : GET /
+2025-08-04 21:51:35 [[32minfo[39m] : GET /api/user/profile/685d730b476d307a9e0d6b53
+2025-08-04 21:52:33 [[31merror[39m] : [ConnectDB.js] Failed to connect to MongoDB: bad auth : authentication failed
+2025-08-04 21:52:57 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-04 21:52:57 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-04 21:53:16 [[31merror[39m] : [ConnectDB.js] Failed to connect to MongoDB: bad auth : authentication failed
+2025-08-04 21:53:24 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-04 21:53:24 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-04 21:55:01 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-04 21:55:01 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-04 21:55:48 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-04 21:55:48 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-04 21:55:58 [[32minfo[39m] : GET /api/user/profile/685d730b476d307a9e0d6b53
+2025-08-04 21:55:58 [[32minfo[39m] : GET /api/admin/customers?searchQuery=&filter=&category=&page=1&pageSize=6
+2025-08-04 21:55:58 [[32minfo[39m] : [AdminController] Fetching customers | User: dssrinman@gmail.com
+2025-08-04 21:55:58 [[32minfo[39m] : [AdminService] Found 2 customers
+2025-08-04 21:55:58 [[32minfo[39m] : [AdminController] Customers fetched: 2
+2025-08-04 21:56:19 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-04 21:56:19 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-04 22:01:23 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-04 22:01:23 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-04 22:01:37 [[32minfo[39m] : GET /api/user/profile/685d730b476d307a9e0d6b53
+2025-08-04 22:01:37 [[32minfo[39m] : GET /api/user/profile/685d730b476d307a9e0d6b53
+2025-08-04 22:01:37 [[32minfo[39m] : GET /api/user/profile/685d730b476d307a9e0d6b53
+2025-08-04 22:01:37 [[32minfo[39m] : GET /api/user/profile/685d730b476d307a9e0d6b53
+2025-08-04 22:01:37 [[32minfo[39m] : GET /api/user/profile/685d730b476d307a9e0d6b53
+2025-08-04 22:01:37 [[32minfo[39m] : GET /api/user/profile/685d730b476d307a9e0d6b53
+2025-08-04 22:01:37 [[32minfo[39m] : GET /api/admin/orders?searchQuery=&filter=&page=1&pageSize=6
+2025-08-04 22:01:37 [[32minfo[39m] : GET /api/admin/orders?searchQuery=&filter=&page=1&pageSize=6
+2025-08-04 22:01:37 [[32minfo[39m] : [AdminService] Found 0 orders
+2025-08-04 22:01:37 [[32minfo[39m] : [AdminService] Found 0 orders
+2025-08-04 22:02:48 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-04 22:02:48 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-04 22:02:57 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-04 22:02:57 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-04 22:03:03 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-04 22:03:03 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-04 22:03:20 [[32minfo[39m] : GET /api/user/profile/685d730b476d307a9e0d6b53
+2025-08-04 22:03:20 [[32minfo[39m] : GET /api/admin/orders?searchQuery=&filter=&page=1&pageSize=6
+2025-08-04 22:03:20 [[32minfo[39m] : [AdminController] Fetching orders | User: dssrinman@gmail.com
+2025-08-04 22:03:20 [[32minfo[39m] : [AdminService] Found 0 orders
+2025-08-04 22:03:20 [[32minfo[39m] : [AdminController] Orders fetched: 0
+2025-08-04 22:06:45 [[32minfo[39m] : GET /
+2025-08-04 22:27:26 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-04 22:27:26 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-04 22:31:26 [[32minfo[39m] : GET http://ossweb-img.qq.com/images/js/eas/eas.js
+2025-08-04 22:35:38 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-04 22:35:38 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-04 22:35:55 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-04 22:35:55 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-04 22:36:15 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-04 22:36:15 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-04 22:38:45 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-04 22:38:45 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-04 22:39:00 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-04 22:39:00 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-04 22:39:20 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-04 22:39:20 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-04 22:39:33 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-04 22:39:33 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-04 22:39:49 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-04 22:39:49 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-04 22:41:24 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-04 22:41:24 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-04 22:49:16 [[32minfo[39m] : GET /
+2025-08-04 23:05:57 [[32minfo[39m] : GET /api/user/products?searchQuery=&filter=&category=&page=1&pageSize=6
+2025-08-04 23:06:45 [[32minfo[39m] : GET /api/user/products?searchQuery=&filter=&category=&page=1&pageSize=6
+2025-08-04 23:16:05 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-04 23:16:05 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-04 23:16:21 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-04 23:16:21 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-04 23:16:34 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-04 23:16:34 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-04 23:17:10 [[32minfo[39m] :  [ConnectDB.js] Successfully connected to MongoDB
+2025-08-04 23:17:10 [[32minfo[39m] : [App.js] Server running on port 8080
+2025-08-04 23:17:31 [[32minfo[39m] : GET /api/user/profile/685d730b476d307a9e0d6b53
+2025-08-04 23:17:32 [[32minfo[39m] : GET /api/user/profile/685d730b476d307a9e0d6b53
+2025-08-04 23:17:32 [[32minfo[39m] : GET /api/admin/customers?searchQuery=&filter=&category=&page=1&pageSize=6
+2025-08-04 23:17:32 [[32minfo[39m] : [AdminController] Fetching customers | User: dssrinman@gmail.com
+2025-08-04 23:17:32 [[32minfo[39m] : [AdminService] Found 2 customers
+2025-08-04 23:17:32 [[32minfo[39m] : [AdminController] Customers fetched: 2
+2025-08-04 23:17:41 [[32minfo[39m] : GET /api/user/profile/685d730b476d307a9e0d6b53
+2025-08-04 23:17:42 [[32minfo[39m] : GET /api/user/profile/685d730b476d307a9e0d6b53
+2025-08-04 23:17:42 [[32minfo[39m] : GET /api/admin/products?searchQuery=&filter=&category=&page=1&pageSize=6
+2025-08-04 23:17:42 [[32minfo[39m] : [AdminController] Fetching products | User: dssrinman@gmail.com
+2025-08-04 23:17:42 [[32minfo[39m] : [AdminService] Found 6 products
+2025-08-04 23:17:42 [[32minfo[39m] : [AdminController] Products fetched: 6
